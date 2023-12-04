@@ -292,7 +292,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 		if(counter <= 0){
 			counter = 10;
 			uint32_t time = HAL_GetTick();
-			HAL_UART_Transmit(&huart2, str, sprintf(str, "Task %d is execute in %d\r\n", status, time), 100);
+			HAL_UART_Transmit(&huart2, str, sprintf(str, "Task %d is execute in %d\r\n", status, time), 5);
 		}
 
 	}

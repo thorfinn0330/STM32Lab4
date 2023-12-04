@@ -604,7 +604,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 			uint32_t time = HAL_GetTick();
  8000426:	f000 fb33 	bl	8000a90 <HAL_GetTick>
  800042a:	60f8      	str	r0, [r7, #12]
-			HAL_UART_Transmit(&huart2, str, sprintf(str, "Task %d is execute in %d\r\n", status, time), 100);
+			HAL_UART_Transmit(&huart2, str, sprintf(str, "Task %d is execute in %d\r\n", status, time), 5);
  800042c:	4b09      	ldr	r3, [pc, #36]	; (8000454 <HAL_TIM_PeriodElapsedCallback+0x5c>)
  800042e:	681a      	ldr	r2, [r3, #0]
  8000430:	68fb      	ldr	r3, [r7, #12]
@@ -613,7 +613,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
  8000436:	f002 fcbf 	bl	8002db8 <siprintf>
  800043a:	4603      	mov	r3, r0
  800043c:	b29a      	uxth	r2, r3
- 800043e:	2364      	movs	r3, #100	; 0x64
+ 800043e:	2305      	movs	r3, #5
  8000440:	4906      	ldr	r1, [pc, #24]	; (800045c <HAL_TIM_PeriodElapsedCallback+0x64>)
  8000442:	4807      	ldr	r0, [pc, #28]	; (8000460 <HAL_TIM_PeriodElapsedCallback+0x68>)
  8000444:	f001 fee4 	bl	8002210 <HAL_UART_Transmit>
