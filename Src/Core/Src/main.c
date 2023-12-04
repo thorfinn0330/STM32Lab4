@@ -95,11 +95,7 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-  /* Configure the SysTick timer to overflow every 1 ms */
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);
 
-  /* Start the SysTick timer */
-  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
@@ -269,20 +265,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_1_Pin|LED_2_Pin|LED_4_Pin|LED_5_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin
+                          |LED_5_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_1_Pin LED_2_Pin LED_4_Pin LED_5_Pin */
-  GPIO_InitStruct.Pin = LED_1_Pin|LED_2_Pin|LED_4_Pin|LED_5_Pin;
+  /*Configure GPIO pins : LED_1_Pin LED_2_Pin LED_3_Pin LED_4_Pin
+                           LED_5_Pin */
+  GPIO_InitStruct.Pin = LED_1_Pin|LED_2_Pin|LED_3_Pin|LED_4_Pin
+                          |LED_5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : LED_3_Pin */
-  GPIO_InitStruct.Pin = LED_3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(LED_3_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
@@ -290,17 +283,17 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 char str[20];
-int counter = 100;
+int counter = 10;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if (htim->Instance == TIM2) {
 
 		SCH_Update();
 		counter--;
 		if(counter <= 0){
-			counter = 100;
-			uint32_t time = HAL_GetTick();
+			counter = 10;
+			//uint32_t time = HAL_GetTick();
 
-			HAL_UART_Transmit(&huart2, str, sprintf(str, "Task %d is execute in %d\r\n", status, time), 1000);
+			//HAL_UART_Transmit(&huart2, str, sprintf(str, "Task %d is execute in %d\r\n", status, time), 1000);
 		}
 
 	}
