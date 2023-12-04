@@ -2,6 +2,6 @@
 ../Core/Src/scheduler.c:21:6:SCH_Update	5
 ../Core/Src/scheduler.c:38:10:SCH_Add_Task	4
 ../Core/Src/scheduler.c:54:6:SCH_Dispatch_Tasks	4
-../Core/Src/scheduler.c:70:9:SCH_Delete_Task	2
-../Core/Src/scheduler.c:85:6:SCH_Go_To_Sleep	1
-../Core/Src/scheduler.c:89:6:SCH_Report_Status	1
+../Core/Src/scheduler.c:72:9:SCH_Delete_Task	2
+../Core/Src/scheduler.c:87:6:SCH_Go_To_Sleep	1
+../Core/Src/scheduler.c:91:6:SCH_Report_Status	1

@@ -69,19 +69,19 @@ static void MX_USART2_UART_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
-void led1test() {
+void led_1_test() {
 	  HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);
   }
-  void led2test() {
+  void led_2_test() {
 	  HAL_GPIO_TogglePin(LED_2_GPIO_Port, LED_2_Pin);
   }
-  void led3test() {
+  void led_3_test() {
 	  HAL_GPIO_TogglePin(LED_3_GPIO_Port, LED_3_Pin);
   }
-  void led4test() {
+  void led_4_test() {
 	  HAL_GPIO_TogglePin(LED_4_GPIO_Port, LED_4_Pin);
   }
-  void led5test() {
+  void led_5_test() {
 	  HAL_GPIO_TogglePin(LED_5_GPIO_Port, LED_5_Pin);
   }
 
@@ -95,7 +95,11 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
+  /* Configure the SysTick timer to overflow every 1 ms */
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);
 
+  /* Start the SysTick timer */
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
@@ -115,11 +119,11 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim2);
   SCH_Init();
-  SCH_Add_Task(led1test, 0, 50);
-  SCH_Add_Task(led2test, 0, 100);
-  SCH_Add_Task(led3test, 0, 150);
-  SCH_Add_Task(led4test, 0, 200);
-  SCH_Add_Task(led5test, 250, 0);
+  SCH_Add_Task(led_1_test, 0, 50);
+  SCH_Add_Task(led_2_test, 0, 100);
+  SCH_Add_Task(led_3_test, 0, 150);
+  SCH_Add_Task(led_4_test, 0, 200);
+  SCH_Add_Task(led_5_test, 250, 0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -285,8 +289,21 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+char str[20];
+int counter = 100;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	SCH_Update();
+	if (htim->Instance == TIM2) {
+
+		SCH_Update();
+		counter--;
+		if(counter <= 0){
+			counter = 100;
+			uint32_t time = HAL_GetTick();
+
+			HAL_UART_Transmit(&huart2, str, sprintf(str, "Task %d is execute in %d\r\n", status, time), 1000);
+		}
+
+	}
 }
 /* USER CODE END 4 */
 

@@ -58,6 +58,8 @@ void SCH_Dispatch_Tasks(void){
 			status = Index;
 			(*SCH_tasks_G[Index].pTask)();
 			SCH_tasks_G[Index].RunMe -= 1;
+
+
 			if(SCH_tasks_G[Index].Period == 0){
 				SCH_Delete_Task(Index);
 			}

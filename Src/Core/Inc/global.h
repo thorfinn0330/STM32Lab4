@@ -17,4 +17,5 @@
 
 extern uint8_t Error_code_G;
 extern uint32_t status;
+
 #endif /* INC_GLOBAL_H_ */
